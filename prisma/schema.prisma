@@ -6,3 +6,38 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum ItemCategory {
+  MAIN_COURSE
+  DESSERT
+  DRINK
+  APPETIZER
+  SIDE_DISH
+}
+
+model MenuItem {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  slug        String  @unique
+  price       Decimal @db.Decimal(10, 2)
+
+  category ItemCategory
+
+  imageUrl  String?
+  available Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menu   Menu?   @relation(fields: [menuId], references: [id])
+  menuId String?
+}
+
+model Menu {
+  id   String @id @default(cuid())
+  name String
+  slug String @unique
+
+  items MenuItem[]
+}
