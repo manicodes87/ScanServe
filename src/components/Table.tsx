@@ -1,3 +1,4 @@
+import type { Table } from "@/generated/prisma/client";
 import type { _Translator } from "next-intl";
 import { useFormatter } from "next-intl";
 
@@ -20,14 +21,14 @@ export default function Table({
     },
     "TablePage"
   >;
-  table: number;
+  table: Table;
 }) {
   const format = useFormatter();
 
   return (
     <div>
       {translations("title", {
-        table: format.number(table),
+        table: format.number(table.number),
       })}
     </div>
   );
