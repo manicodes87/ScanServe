@@ -3,7 +3,12 @@
     "title": "اسکن سرو",
     "description": "تولید شده توسط create next app"
   },
+
   "IndexPage": {
     "title": "به اسکن سرو خوش آمدید!"
+  },
+
+  "TablePage": {
+    "title": "شماره میز {table}"
   }
 }

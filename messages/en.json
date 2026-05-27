@@ -6,5 +6,9 @@
 
   "IndexPage": {
     "title": "Welcome to ScanServe!"
+  },
+
+  "TablePage": {
+    "title": "Table number {table}"
   }
 }
