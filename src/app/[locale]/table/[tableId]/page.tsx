@@ -9,8 +9,6 @@ export default async function TablePage({
   const { locale, tableId } = await params;
   const t = await getTranslations("TablePage");
 
-  console.log(tableId);
-
   const table = await prisma.table.findMany({
     where: {
       id: tableId,
@@ -19,5 +17,5 @@ export default async function TablePage({
 
   const tableExists = table.length > 0;
 
-  return tableExists ? <Table translations={t} table={table[0]} /> : notFound();
+  return tableExists ? <Table table={table[0]} /> : notFound();
 }
