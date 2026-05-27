@@ -9,6 +9,7 @@
   },
 
   "TablePage": {
-    "title": "Table number {table}"
+    "title": "Table {table}",
+    "payButton": "Pay"
   }
 }

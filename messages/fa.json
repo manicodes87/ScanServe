@@ -9,6 +9,7 @@
   },
 
   "TablePage": {
-    "title": "شماره میز {table}"
+    "title": "میز  {table}",
+    "payButton": "پرداخت"
   }
 }
