@@ -15,6 +15,13 @@ enum ItemCategory {
   SIDE_DISH
 }
 
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
 model MenuItem {
   id          String  @id @default(cuid())
   name        String
@@ -32,6 +39,9 @@ model MenuItem {
 
   menu   Menu?   @relation(fields: [menuId], references: [id])
   menuId String?
+
+  menuItemTranslations MenuItemTranslation[]
+  orderItems           OrderItem[]
 }
 
 model Menu {
@@ -39,5 +49,62 @@ model Menu {
   name String
   slug String @unique
 
-  items MenuItem[]
+  items            MenuItem[]
+  menuTranslations MenuTranslation[]
+}
+
+model MenuTranslation {
+  id String @id @default(cuid())
+
+  language String
+  name     String
+
+  menu   Menu   @relation(fields: [menuId], references: [id])
+  menuId String
+
+  @@unique([language, menuId])
+}
+
+model MenuItemTranslation {
+  id String @id @default(cuid())
+
+  language    String
+  name        String
+  description String?
+
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId String
+
+  @@unique([language, menuItemId])
+}
+
+model Table {
+  id        String  @id @default(cuid())
+  number    Int
+  available Boolean @default(true)
+
+  order Order[]
+}
+
+model Order {
+  id     String      @id @default(cuid())
+  total  Decimal     @db.Decimal(10, 2)
+  status OrderStatus @default(PENDING)
+
+  tableId String
+  table   Table  @relation(fields: [tableId], references: [id])
+
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id String @id @default(cuid())
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId String
+
+  quantity Int
 }
